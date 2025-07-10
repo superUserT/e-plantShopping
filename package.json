@@ -9,6 +9,11 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite build; vite preview --host"
   },
+  "author": {
+    "name": "Thabiso Rantsho",
+    "email": "thabiso.rantsho@Umuzi.org",
+    "github": "https://github.com/superUserT"
+  },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.3",
     "react": "^18.2.0",
