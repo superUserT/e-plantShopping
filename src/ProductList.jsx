@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./ProductList.css";
 import CartItem from "./CartItem";
-import { addItem } from "./CartSlice";
+import { addItem, removeItem, updateQuantity } from "./CartSlice";
 
 const handleAddToCart = (product) => {
   dispatch(addItem(product)); // Dispatch the action to add the product to the cart (Redux action)
