@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { removeItem, addItem, updateQuantity } from "./CartSlice";
+import { removeItem, updateQuantity } from "./CartSlice";
 import "./CartItem.css";
 
 const CartItem = ({ onContinueShopping }) => {
@@ -8,18 +8,56 @@ const CartItem = ({ onContinueShopping }) => {
   const dispatch = useDispatch();
 
   // Calculate total amount for all products in the cart
-  const calculateTotalAmount = () => {};
+  const calculateTotalAmount = () => {
+    let total = 0;
 
-  const handleContinueShopping = (e) => {};
+    cart.forEach((item) => {
+      // Extract numeric value from cost string (e.g., "$15" -> 15)
+      const itemCost = parseFloat(item.cost.substring(1));
+      // Multiply by quantity and add to total
+      total += itemCost * item.quantity;
+    });
 
-  const handleIncrement = (item) => {};
+    return total.toFixed(2);
+  };
 
-  const handleDecrement = (item) => {};
+  const handleContinueShopping = (e) => {
+    onContinueShopping(e);
+  };
 
-  const handleRemove = (item) => {};
+  const handleIncrement = (item) => {
+    dispatch(
+      updateQuantity({
+        name: item.name,
+        quantity: item.quantity + 1,
+      })
+    );
+  };
+
+  const handleDecrement = (item) => {
+    if (item.quantity > 1) {
+      // Decrease quantity by 1
+      dispatch(
+        updateQuantity({
+          name: item.name,
+          quantity: item.quantity - 1,
+        })
+      );
+    } else {
+      // Remove item if quantity would drop to 0
+      dispatch(removeItem(item.name));
+    }
+  };
+
+  const handleRemove = (item) => {
+    dispatch(removeItem(item.name));
+  };
 
   // Calculate total cost based on quantity for an item
-  const calculateTotalCost = (item) => {};
+  const calculateTotalCost = (item) => {
+    const itemCost = parseFloat(item.cost.substring(1));
+    return (itemCost * item.quantity).toFixed(2);
+  };
 
   return (
     <div className="cart-container">
